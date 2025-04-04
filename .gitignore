@@ -1,0 +1,11 @@
+# Virtual environment folder
+env/
+
+# OS-specific files
+.DS_Store
+
+# Other temporary files
+*.log
+
+# Ignore the .env file that contains sensitive information
+.env
