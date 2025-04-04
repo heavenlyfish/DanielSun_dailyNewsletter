@@ -2,7 +2,6 @@ name: Daily PDF Upload
 
 on:
   schedule:
-    # This cron expression runs every day at 13:00 UTC, which is 9 PM Taipei time (UTC+8)
     - cron: "0 13 * * *"
   workflow_dispatch:
 
@@ -12,6 +11,13 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+
+      - name: Set Environment Variables
+        run: |
+          echo "MEGA_EMAIL=${{ secrets.MEGA_EMAIL }}" >> $GITHUB_ENV
+          echo "MEGA_PASSWORD=${{ secrets.MEGA_PASSWORD }}" >> $GITHUB_ENV
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" >> $GITHUB_ENV
+          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v4
