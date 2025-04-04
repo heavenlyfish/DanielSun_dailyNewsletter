@@ -9,6 +9,7 @@ load_dotenv()
 import requests
 from mega import Mega
 import os
+from datetime import datetime, timezone, timedelta
 
 def send_telegram_message(message):
     """Send a text notification message via Telegram Bot."""
@@ -43,15 +44,20 @@ def send_file_to_telegram(file_path, caption=""):
         print("Failed to send file to Telegram. Response:", response.text)
 
 def main():
-    # For testing, use fixed parts that match your file name structure.
-    test_date_part1 = "202504"   # Represents year and month
-    test_date_part2 = "20250402"  # Represents the full date
-
-    # Construct the URL and filename using the two parts.
-    url = f"https://smart.businessweekly.com.tw/admin//MultUploadFile/InvestorDailyFile_{test_date_part1}{test_date_part2}_投資家日報.pdf"
-    filename = f"InvestorDailyFile_{test_date_part1}{test_date_part2}_投資家日報.pdf"
-
-    print("Testing with URL:", url)
+    # Calculate current date in Taiwan time (UTC+8)
+    tz = timezone(timedelta(hours=8))
+    taiwan_date = datetime.now(tz)
+    
+    # Use the original file naming convention:
+    # Part1 = YYYYMM, Part2 = YYYYMMDD.
+    part1 = taiwan_date.strftime("%Y%m")
+    part2 = taiwan_date.strftime("%Y%m%d")
+    
+    # Construct URL and file name using the original naming scheme.
+    url = f"https://smart.businessweekly.com.tw/admin//MultUploadFile/InvestorDailyFile_{part1}{part2}_投資家日報.pdf"
+    filename = f"InvestorDailyFile_{part1}{part2}_投資家日報.pdf"
+    
+    print("Downloading file from URL:", url)
 
     # Check if the file already exists locally
     if os.path.exists(filename):
