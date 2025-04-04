@@ -52,6 +52,8 @@ def main():
     # Part1 = YYYYMM, Part2 = YYYYMMDD.
     part1 = taiwan_date.strftime("%Y%m")
     part2 = taiwan_date.strftime("%Y%m%d")
+    #part1 = "202504"
+    #part2 = "20250402"
     
     # Construct URL and file name using the original naming scheme.
     url = f"https://smart.businessweekly.com.tw/admin//MultUploadFile/InvestorDailyFile_{part1}{part2}_投資家日報.pdf"
