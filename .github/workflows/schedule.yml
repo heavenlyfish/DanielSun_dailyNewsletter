@@ -1,0 +1,26 @@
+name: Daily PDF Upload
+
+on:
+  schedule:
+    # This cron expression runs every day at 13:00 UTC, which is 9 PM Taipei time (UTC+8)
+    - cron: "0 13 * * *"
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Install Dependencies
+        run: |
+          pip install requests mega.py python-dotenv
+
+      - name: Run Script
+        run: python3 download_bw_pdf.py
