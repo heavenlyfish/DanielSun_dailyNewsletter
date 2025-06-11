@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import requests
-from mega import Mega
 import os
 from datetime import datetime, timezone, timedelta
 
