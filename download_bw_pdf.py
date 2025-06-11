@@ -76,7 +76,7 @@ def main():
             send_telegram_message(f"❌ PDF download error: {e}")
             exit(1)
 
-    send_file_to_telegram(filename, caption=f"{filename} 已備份至 MEGA「{folder_name}」")
+    send_file_to_telegram(filename, caption=f"{filename} 已備份至 MEGA「InvestorDaily」")
     os.remove(filename)
     print("✅ Local file deleted.")
 
