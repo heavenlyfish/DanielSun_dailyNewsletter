@@ -77,20 +77,6 @@ def main():
             send_telegram_message(f"❌ PDF download error: {e}")
             exit(1)
 
-    MEGA_SESSION_ID = os.getenv("MEGA_SESSION_ID")
-    if not MEGA_SESSION_ID:
-        raise RuntimeError("❌ Missing MEGA_SESSION_ID")
-
-    mega = Mega()
-    m = mega.login_with_session_id(MEGA_SESSION_ID)
-
-    folder_name = "InvestorDaily"
-    folder = m.find(folder_name)
-    folder_node = folder[0] if folder else m.create_folder(folder_name)
-
-    uploaded_node = m.upload(filename, folder_node)
-    print(f"✅ {filename} uploaded to MEGA in folder '{folder_name}'.")
-
     send_file_to_telegram(filename, caption=f"{filename} 已備份至 MEGA「{folder_name}」")
     os.remove(filename)
     print("✅ Local file deleted.")
