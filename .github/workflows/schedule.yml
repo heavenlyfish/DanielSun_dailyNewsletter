@@ -2,7 +2,7 @@ name: Daily PDF Upload
 
 on:
   schedule:
-    - cron: "0 13 * * *"  # 每天台灣時間 21:00（13:00 UTC）
+    - cron: "0 13 * * *"  # 每天台灣時間 21:00
   workflow_dispatch:
 
 jobs:
@@ -27,7 +27,18 @@ jobs:
       - name: Install Dependencies
         run: |
           pip install requests python-dotenv
-          pip install git+https://github.com/onionjack/mega.py.git
 
-      - name: Run Script
-        run: python3 download_bw_pdf.py
+      - name: Install MEGAcmd CLI
+        run: |
+          sudo apt update
+          sudo apt install -y megacmd
+
+      - name: Run Script and Upload via MEGAcmd
+        run: |
+          python3 download_bw_pdf.py
+
+      - name: Upload PDF to MEGA
+        run: |
+          mega-login --session $MEGA_SESSION_ID
+          mega-mkdir /InvestorDaily || true
+          mega-put InvestorDailyFile_*.pdf /InvestorDaily
