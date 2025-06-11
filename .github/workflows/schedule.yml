@@ -28,10 +28,10 @@ jobs:
         run: |
           pip install requests python-dotenv
 
-      - name: Install MEGAcmd CLI
+      - name: Install MEGAcmd (via .deb)
         run: |
-          sudo apt update
-          sudo apt install -y megacmd
+          wget https://mega.nz/linux/repo/Debian_11/amd64/megacmd-x86_64.deb -O megacmd.deb
+          sudo apt install -y ./megacmd.deb
 
       - name: Run Script and Upload via MEGAcmd
         run: |
