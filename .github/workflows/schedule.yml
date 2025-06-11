@@ -26,7 +26,8 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install requests mega.py python-dotenv
+          pip install requests python-dotenv
+          pip install git+https://github.com/tonikelope/mega.py.git@session-login
 
       - name: Run Script
         run: python3 download_bw_pdf.py
