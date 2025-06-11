@@ -30,15 +30,24 @@ jobs:
 
       - name: Install MEGAcmd (via .deb)
         run: |
+          sudo apt update
+          sudo apt install -y wget
           wget https://mega.nz/linux/repo/Debian_11/amd64/megacmd-x86_64.deb -O megacmd.deb
           sudo apt install -y ./megacmd.deb
-
+      
+      - name: Check MEGAcmd version
+        run: mega-version
+        
       - name: Run Script and Upload via MEGAcmd
         run: |
           python3 download_bw_pdf.py
 
       - name: Upload PDF to MEGA
         run: |
-          mega-login --session $MEGA_SESSION_ID
-          mega-mkdir /InvestorDaily || true
-          mega-put InvestorDailyFile_*.pdf /InvestorDaily
+          if ls InvestorDailyFile_*.pdf 1> /dev/null 2>&1; then
+            mega-login --session $MEGA_SESSION_ID
+            mega-mkdir /InvestorDaily || true
+            mega-put InvestorDailyFile_*.pdf /InvestorDaily
+          else
+            echo "📭 No PDF file found, skipping MEGA upload."
+          fi
