@@ -32,7 +32,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y wget
-          wget https://mega.nz/linux/repo/Debian_11/amd64/megacmd-x86_64.deb -O megacmd.deb
+          wget https://mega.nz/linux/repo/Debian_11/amd64/megacmd_2.1.1-1.1_amd64.deb -O megacmd.deb
           sudo apt install -y ./megacmd.deb
       
       - name: Check MEGAcmd version
